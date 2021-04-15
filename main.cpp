@@ -12,6 +12,8 @@
 #include <chrono>
 #include <iomanip>
 #include <algorithm>
+#include <omp.h>
+#include "parallelMergeSort.h"
 using namespace std;
 
 void initArray(int* array, int n);
@@ -28,7 +30,10 @@ int main()
     // initialize array length N with random numbers
     //
     int arr[N];
+    int arr2[N];
+
     initArray(arr, N);
+    std::copy(std::begin(arr), std::end(arr), std::begin(arr2));
 
     // End timer
     //
@@ -45,6 +50,7 @@ int main()
     begin = std::chrono::high_resolution_clock::now();
 
     // std::sort array O(N·log(N))
+    //
     sort(arr, arr + N);
     
     // End timer
@@ -54,7 +60,25 @@ int main()
     cout << "std::sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
 
 
+    // Init Array
+    // 
+    int temp[N];
+    int threads = omp_get_max_threads();
 
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Parallel Merge Sort
+    //
+    parallelMergeSort(arr2, N, temp, threads);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Parallel Merge Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+    
 
     return(0);
 }
