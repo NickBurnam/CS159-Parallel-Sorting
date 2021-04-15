@@ -9,31 +9,50 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include <chrono>
+#include <iomanip>
 using namespace std;
 
-void printArray(int* array);
+void initArray(int* array, int n);
+void printArray(int* array, int n);
 
 const int N = 16;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    // start timer
+    // 
+    auto begin = std::chrono::high_resolution_clock::now();
+
     // initialize array length N with random numbers
     //
-    srand((unsigned int)time(NULL));
     int arr[N];
-    for (int i = 0; i < N; i++) {
-        arr[i] = rand() % 100;
-    }
+    initArray(arr, N);
 
-    printArray(arr);
+    // End timer
+    //
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Time to initialize Array: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+    
+    // Print array
+    //
+    printArray(arr, N);
 
     return(0);
 }
 
-void printArray(int *array) {
+void initArray(int* array, int n) {
+    srand((unsigned int)time(NULL));
+    
+    for (int i = 0; i < n; i++) {
+        array[i] = rand() % 100;
+    }
+}
+
+void printArray(int *array, int n) {
     cout << "< ";
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < n; i++) {
         if(i == N-1)
             cout << array[i] << " >";
         else
