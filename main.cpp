@@ -11,6 +11,7 @@
 #include <time.h>
 #include <chrono>
 #include <iomanip>
+#include <algorithm>
 using namespace std;
 
 void initArray(int* array, int n);
@@ -39,6 +40,22 @@ int main()
     //
     printArray(arr, N);
 
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // std::sort array O(N·log(N))
+    sort(arr, arr + N);
+    
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "std::sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+
+
+
     return(0);
 }
 
@@ -54,7 +71,7 @@ void printArray(int *array, int n) {
     cout << "< ";
     for (int i = 0; i < n; i++) {
         if(i == N-1)
-            cout << array[i] << " >";
+            cout << array[i] << " >" << endl;
         else
             cout << array[i] << ", ";
     }
