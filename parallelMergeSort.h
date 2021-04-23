@@ -3,6 +3,6 @@
 #include <string.h>
 #include <iostream>
 
-void parallelMergeSort(int list[], int size, int temp[], int threads);
-void merge_sort_serial(int list[], int size, int temp[]);
-void merge(int list[], int size, int temp[]);
+void parallelMergeSort(int* array, int low, int high);
+void sequentialMergeSort(int* array, int low, int high);
+void merge(int* array, int low, int mid, int high);
