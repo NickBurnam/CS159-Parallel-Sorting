@@ -20,7 +20,7 @@ void initArray(int* array, int n);
 void printArray(int* array, int n);
 void copyArray(int* source, int* dest, int size);
 
-const int N = 1000000;
+const int N = 1000;
 const bool printArrays = false;
 
 int main()
@@ -105,8 +105,9 @@ int main()
 
     // Parallel Merge Sort
     //
-    omp_set_num_threads(16);
-    parallelMergeSort(arr3, 0, N-1);
+    int numThreads = 16;
+    omp_set_num_threads(numThreads);
+    parallelMergeSort(arr3, 0, N-1, numThreads);
 
     // End timer
     //

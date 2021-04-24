@@ -1,21 +1,26 @@
 #include "parallelMergeSort.h"
 
-void parallelMergeSort(int* array, int low, int high) {
+void parallelMergeSort(int* array, int low, int high, int threads) {
 	// calculating mid point of array
 	int mid = low + (high - low) / 2;
 	if (low < high) {
-        #pragma omp parallel sections
-	    {
-            #pragma omp section
-		    {
-			    parallelMergeSort(array, low, mid);
-		    }
-            #pragma omp section
-		    {
-		    	parallelMergeSort(array, mid + 1, high);
-		    }
-	    }
-
+        if (threads > 1) {
+            #pragma omp parallel sections
+            {
+                #pragma omp section
+                {
+                    parallelMergeSort(array, low, mid, threads / 2);
+                }
+                #pragma omp section
+                {
+                    parallelMergeSort(array, mid + 1, high, threads - threads / 2);
+                }
+            }
+        }
+        else {
+            parallelMergeSort(array, low, mid, threads / 2);
+            parallelMergeSort(array, mid + 1, high, threads / 2);
+        }
 		merge(array, low, mid, high);
 	}
 }
