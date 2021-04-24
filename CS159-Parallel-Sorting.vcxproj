@@ -143,9 +143,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parallelMergeSort.cpp" />
+    <ClCompile Include="parallelQuickSort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parallelMergeSort.h" />
+    <ClInclude Include="parallelQuickSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
