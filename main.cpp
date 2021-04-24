@@ -14,17 +14,25 @@
 #include <algorithm>
 #include <omp.h>
 #include "parallelMergeSort.h"
+#include "parallelQuickSort.h"
 using namespace std;
 
 void initArray(int* array, int n);
 void printArray(int* array, int n);
 void copyArray(int* source, int* dest, int size);
 
-const int N = 1000;
-const bool printArrays = false;
+const int N = 16;
+const bool printArrays = true;
 
 int main()
 {
+    // Init num threads
+    //
+    int numThreads = 16;
+    omp_set_num_threads(numThreads);
+    
+    cout << "/*****************************************************************************/" << endl;
+
     // start timer
     // 
     auto begin = std::chrono::high_resolution_clock::now();
@@ -34,10 +42,14 @@ int main()
     int* arr = new int[N];
     int* arr2 = new int[N];
     int* arr3 = new int[N];
+    int* arr4 = new int[N];
+    int* arr5 = new int[N];
 
     initArray(arr, N);
     copyArray(arr, arr2, N);
     copyArray(arr, arr3, N);
+    copyArray(arr, arr4, N);
+    copyArray(arr, arr5, N);
 
     // End timer
     //
@@ -105,8 +117,6 @@ int main()
 
     // Parallel Merge Sort
     //
-    int numThreads = 16;
-    omp_set_num_threads(numThreads);
     parallelMergeSort(arr3, 0, N-1, numThreads);
 
     // End timer
@@ -121,14 +131,65 @@ int main()
 
     cout << endl << "/*****************************************************************************/" << endl;
 
+    // Print array before sort
+    //
+    printArray(arr4, N);
+
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Sequential Quick Sort
+    //
+    sequentialQuickSort(arr4, 0, N - 1);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Sequential Quick Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+    // Print array after sort
+    //
+    printArray(arr4, N);
+
+    cout << endl << "/*****************************************************************************/" << endl;
+
+    // Print array before sort
+    //
+    printArray(arr5, N);
+
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Parallel Quick Sort
+    //
+    parallelQuickSort(arr5, 0, N - 1, numThreads);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Parallel Quick Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+    // Print array after sort
+    //
+    printArray(arr5, N);
+
+    cout << endl << "/*****************************************************************************/" << endl;
+
     return(0);
 }
 
 void initArray(int* array, int n) {
-    srand((unsigned int)time(NULL));
-    
-    for (int i = 0; i < n; i++) {
-        array[i] = rand() % 100;
+    #pragma omp parallel
+    {
+        srand((unsigned int)time(NULL) ^ omp_get_thread_num());
+        #pragma omp for
+            for (int i = 0; i < n; i++) {
+                array[i] = rand() % 100;
+            }
     }
 }
 
@@ -145,7 +206,11 @@ void printArray(int *array, int n) {
 }
 
 void copyArray(int* source, int* dest, int size) {
-    for (int i = 0; i < size; i++)
-        dest[i] = source[i];
+    #pragma omp parallel
+    {
+    #pragma omp for
+        for (int i = 0; i < size; i++)
+            dest[i] = source[i];
+    }
 }
 

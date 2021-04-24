@@ -14,6 +14,7 @@ void parallelMergeSort(int* array, int low, int high, int threads) {
 	int mid = low + (high - low) / 2;
 	if (low < high) {
         if (threads > 1) {
+            omp_set_nested(1);
             #pragma omp parallel sections
             {
                 #pragma omp section

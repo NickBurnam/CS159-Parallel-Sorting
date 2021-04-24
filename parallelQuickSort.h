@@ -8,3 +8,8 @@
 //		   https://github.com/
 // *********************************************************
 #pragma once
+#include <omp.h>
+#include <iostream>
+
+void sequentialQuickSort(int* arr, int left, int right);
+void parallelQuickSort(int* arr, int left, int right, int threads);
