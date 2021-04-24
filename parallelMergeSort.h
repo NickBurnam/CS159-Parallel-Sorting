@@ -1,3 +1,12 @@
+// *********************************************************
+// CS159-Parallel-Sorting
+// Author: Nicholas Burnam
+// Date: 4/1/2021
+// Description: A parallel merge sort algorithm implemented 
+//              using OpenMP.
+// Source: Adapted from Daniel Palomino
+//		   https://github.com/dpalominop/ParallelMergeSort
+// *********************************************************
 #pragma once
 #include <omp.h>
 #include <string.h>
