@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <omp.h>
+#include <execution>
 #include "parallelMergeSort.h"
 #include "parallelQuickSort.h"
 #include "parallelBitonicSort.h"
@@ -41,22 +42,22 @@ int main()
     // initialize array length N with random numbers
     //
     int* arr = new int[N];
+    int* arr1 = new int[N];
     int* arr2 = new int[N];
     int* arr3 = new int[N];
     int* arr4 = new int[N];
     int* arr5 = new int[N];
     int* arr6 = new int[N];
     int* arr7 = new int[N];
-    int* arr8 = new int[N];
 
     initArray(arr, N);
+    copyArray(arr, arr1, N);
     copyArray(arr, arr2, N);
     copyArray(arr, arr3, N);
     copyArray(arr, arr4, N);
     copyArray(arr, arr5, N);
     copyArray(arr, arr6, N);
     copyArray(arr, arr7, N);
-    copyArray(arr, arr8, N);
 
     // End timer
     //
@@ -87,6 +88,30 @@ int main()
     // Print array after std::sort
     //
     printArray(arr, N);
+
+    cout << endl << "/*****************************************************************************/" << endl;
+
+    // Print array before Parallel std::sort
+    //
+    printArray(arr1, N);
+
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Parallel std::sort array O(N·log(N))
+    //
+    sort(std::execution::par_unseq, arr1, arr1 + N);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Parallel std::sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+    // Print array after Parallel std::sort
+    //
+    printArray(arr1, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
