@@ -7,9 +7,16 @@
 // Source: Adapted from Eduard López
 //		   https://github.com/eduardlopez/quicksort-parallel
 // *********************************************************
-#include "parallelQuickSort.h"
-#include <omp.h>
 
+#include "parallelQuickSort.h"
+
+/**
+ * Sequential single-threaded implementation of quick sort.
+ *
+ * @param arr The array to sort.
+ * @param left The start index of the array.
+ * @param right The end index of the array.
+ */
 void sequentialQuickSort(int* arr, int left, int right)
 {
 	int i = left, j = right;
@@ -36,6 +43,14 @@ void sequentialQuickSort(int* arr, int left, int right)
 	if (i < right) { sequentialQuickSort(arr, i, right); }
 }
 
+/**
+ * Parallel multi-threaded implementation of quick sort.
+ *
+ * @param arr The array to sort.
+ * @param left The start index of the array.
+ * @param right The end index of the array.
+ * @param threads The number of threads to utilize.
+ */
 void parallelQuickSort(int* arr, int left, int right, int threads)
 {
 	int i = left, j = right;

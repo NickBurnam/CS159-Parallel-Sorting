@@ -26,6 +26,11 @@ void copyArray(int* source, int* dest, int size);
 const int N = 16777216; //Must be a power of 2 for bitonic sort 2^24=16777216
 const bool printArrays = false;
 
+/**
+ * Main method for sorting algorithm testing.
+ *
+ * @return 0
+ */
 int main()
 {
     // Init num threads
@@ -262,6 +267,12 @@ int main()
     return(0);
 }
 
+/**
+ * Initialize array with random values.
+ *
+ * @param array The array to fill.
+ * @param n The size of the array.
+ */
 void initArray(int* array, int n) {
     #pragma omp parallel
     {
@@ -273,6 +284,12 @@ void initArray(int* array, int n) {
     }
 }
 
+/**
+ * Print n elements of an array.
+ *
+ * @param array The array to print.
+ * @param n The number of elements to print.
+ */
 void printArray(int *array, int n) {
     if (printArrays) {
         cout << "< ";
@@ -285,11 +302,18 @@ void printArray(int *array, int n) {
     }
 }
 
-void copyArray(int* source, int* dest, int size) {
+/**
+ * Copy an array into another of the same size.
+ *
+ * @param source The source array.
+ * @param dest The destination array.
+ * @param n The number of elements to copy.
+ */
+void copyArray(int* source, int* dest, int n) {
     #pragma omp parallel
     {
     #pragma omp for
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < n; i++)
             dest[i] = source[i];
     }
 }

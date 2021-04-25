@@ -7,15 +7,32 @@
 // Source: Adapted from 
 //		   https://www.geeksforgeeks.org/bitonic-sort/
 // *********************************************************
+
 #include "parallelBitonicSort.h"
 
-void compAndSwap(int a[], int i, int j, int dir)
+/**
+ * Swap two elements in the array to adhere to ascending or descending order.
+ *
+ * @param a The array to sort.
+ * @param i The start index of the array.
+ * @param j The end index of the array.
+ * @param dir Value for ascending (1) or descending (0).
+ */
+void compAndSwap(int* a, int i, int j, int dir)
 {
     if (dir == (a[i] > a[j]))
         swap(a[i], a[j]);
 }
 
-void bitonicMerge(int a[], int low, int cnt, int dir)
+/**
+ * Merge a bitonic sequence in ascending or descending order.
+ *
+ * @param a The array to sort.
+ * @param low The start index of the array.
+ * @param cnt The number of elements to be sorted.
+ * @param dir Value for ascending (1) or descending (0).
+ */
+void bitonicMerge(int* a, int low, int cnt, int dir)
 {
     if (cnt > 1)
     {
@@ -27,7 +44,15 @@ void bitonicMerge(int a[], int low, int cnt, int dir)
     }
 }
 
-void sequentialBitonicSortRoutine(int a[], int low, int cnt, int dir)
+/**
+ * Recursively split array into bitonic sequence and then merge.
+ *
+ * @param a The array to sort.
+ * @param low The start index of the array.
+ * @param cnt The number of elements to be sorted.
+ * @param dir Value for ascending (1) or descending (0).
+ */
+void sequentialBitonicSortRoutine(int* a, int low, int cnt, int dir)
 {
     if (cnt > 1)
     {
@@ -45,7 +70,16 @@ void sequentialBitonicSortRoutine(int a[], int low, int cnt, int dir)
     }
 }
 
-void parallelBitonicSortRoutine(int a[], int low, int cnt, int dir, int threads)
+/**
+ * Split array into bitonic sequence with parallel recursion and then merge.
+ *
+ * @param a The array to sort.
+ * @param low The start index of the array.
+ * @param cnt The number of elements to be sorted.
+ * @param dir Value for ascending (1) or descending (0).
+ * @param threads The number of threads to utilize.
+ */
+void parallelBitonicSortRoutine(int* a, int low, int cnt, int dir, int threads)
 {
     if (cnt > 1)
     {
@@ -81,11 +115,26 @@ void parallelBitonicSortRoutine(int a[], int low, int cnt, int dir, int threads)
     }
 }
 
+/**
+ * Sequential single-threaded implementation of Bitonic Sort.
+ *
+ * @param arr The array to sort.
+ * @param start The start index of the array.
+ * @param N The size of the array.
+ */
 void sequentialBitonicSort(int* arr, int start, int N) {
     int up = 1;
     sequentialBitonicSortRoutine(arr, start, N, up);
 }
 
+/**
+ * Parallel multi-threaded implementation of Bitonic Sort.
+ *
+ * @param arr The array to sort.
+ * @param start The start index of the array.
+ * @param N The size of the array.
+ * @param numThreads The number of threads to utilize.
+ */
 void parallelBitonicSort(int* arr, int start, int N, int numThreads) {
     int up = 1;
     parallelBitonicSortRoutine(arr, start, N, up, numThreads);

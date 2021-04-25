@@ -7,8 +7,17 @@
 // Source: Adapted from Daniel Palomino
 //		   https://github.com/dpalominop/ParallelMergeSort
 // *********************************************************
+
 #include "parallelMergeSort.h"
 
+/**
+ * Parallel multi-threaded implementation of merge sort.
+ *
+ * @param array The array to sort.
+ * @param low The start index of the array.
+ * @param high The end index of the array.
+ * @param threads The number of threads to utilize.
+ */
 void parallelMergeSort(int* array, int low, int high, int threads) {
 	// calculating mid point of array
 	int mid = low + (high - low) / 2;
@@ -35,6 +44,13 @@ void parallelMergeSort(int* array, int low, int high, int threads) {
 	}
 }
 
+/**
+ * Sequential single-threaded implementation of merge sort.
+ *
+ * @param array The array to sort.
+ * @param low The start index of the array.
+ * @param high The end index of the array.
+ */
 void sequentialMergeSort(int* array, int low, int high) {
     int mid = low + (high - low) / 2;
     if (low < high) {
@@ -44,6 +60,14 @@ void sequentialMergeSort(int* array, int low, int high) {
     }
 }
 
+/**
+ * Merge elements to sort.
+ *
+ * @param array The array to sort.
+ * @param low The start index of the array.
+ * @param mid The middle index of the array.
+ * @param high The end index of the array.
+ */
 void merge(int* array, int low, int mid, int high) {
     
     // n1 is size of left part and n2 is size of right part
