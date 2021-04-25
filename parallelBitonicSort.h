@@ -9,6 +9,7 @@
 // *********************************************************
 #pragma once
 #include <algorithm>
+#include <omp.h>
 using namespace std;
 
 void sequentialBitonicSort(int* arr, int start, int N);

@@ -22,8 +22,8 @@ void initArray(int* array, int n);
 void printArray(int* array, int n);
 void copyArray(int* source, int* dest, int size);
 
-const int N = 16;
-const bool printArrays = true;
+const int N = 16777216; //Must be a power of 2 for bitonic sort 2^24=16777216
+const bool printArrays = false;
 
 int main()
 {
@@ -207,6 +207,30 @@ int main()
     // Print array after Sequential Bitonic sort
     //
     printArray(arr6, N);
+
+    cout << endl << "/*****************************************************************************/" << endl;
+    
+    // Print array before Parallel Bitonic sort
+    //
+    printArray(arr7, N);
+
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Parallel Bitonic Sort
+    //
+    parallelBitonicSort(arr7, 0, N, numThreads);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Parallel Bitonic Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+    // Print array after Parallel Bitonic sort
+    //
+    printArray(arr7, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
