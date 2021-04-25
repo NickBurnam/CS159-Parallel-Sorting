@@ -4,8 +4,8 @@
 // Date: 4/1/2021
 // Description: A parallel quick sort algorithm implemented 
 //              using OpenMP.
-// Source: Adapted from 
-//		   https://github.com/
+// Source: Adapted from Eduard López
+//		   https://github.com/eduardlopez/quicksort-parallel
 // *********************************************************
 #include "parallelQuickSort.h"
 #include <omp.h>
@@ -59,7 +59,7 @@ void parallelQuickSort(int* arr, int left, int right, int threads)
 
 	/* RECURSION PART */
 	if (threads > 1) {
-		omp_set_nested(1);
+		omp_set_nested(1); //big performance gain
 		#pragma omp parallel sections
 		{
 			#pragma omp section
