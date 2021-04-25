@@ -15,6 +15,7 @@
 #include <omp.h>
 #include "parallelMergeSort.h"
 #include "parallelQuickSort.h"
+#include "parallelBitonicSort.h"
 using namespace std;
 
 void initArray(int* array, int n);
@@ -44,12 +45,18 @@ int main()
     int* arr3 = new int[N];
     int* arr4 = new int[N];
     int* arr5 = new int[N];
+    int* arr6 = new int[N];
+    int* arr7 = new int[N];
+    int* arr8 = new int[N];
 
     initArray(arr, N);
     copyArray(arr, arr2, N);
     copyArray(arr, arr3, N);
     copyArray(arr, arr4, N);
     copyArray(arr, arr5, N);
+    copyArray(arr, arr6, N);
+    copyArray(arr, arr7, N);
+    copyArray(arr, arr8, N);
 
     // End timer
     //
@@ -59,7 +66,7 @@ int main()
     
     cout << endl << "/*****************************************************************************/" << endl;
 
-    // Print array before sort
+    // Print array before std::sort
     //
     printArray(arr, N);
 
@@ -77,13 +84,13 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     cout << "std::sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
 
-    // Print array after sort
+    // Print array after std::sort
     //
     printArray(arr, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
-    // Print array before sort
+    // Print array before Sequential Merge sort
     //
     printArray(arr2, N);
 
@@ -101,13 +108,13 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     cout << "Sequential Merge Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
 
-    // Print array after sort
+    // Print array after Sequential Merge sort
     //
     printArray(arr2, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
-    // Print array before sort
+    // Print array before Parallel Merge sort
     //
     printArray(arr3, N);
 
@@ -125,13 +132,13 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     cout << "Parallel Merge Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
     
-    // Print array after sort
+    // Print array after Parallel Merge sort
     //
     printArray(arr3, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
-    // Print array before sort
+    // Print array before Sequential Quick sort
     //
     printArray(arr4, N);
 
@@ -149,13 +156,13 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     cout << "Sequential Quick Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
 
-    // Print array after sort
+    // Print array after Sequential Quick sort
     //
     printArray(arr4, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
-    // Print array before sort
+    // Print array before Parallel Quick sort
     //
     printArray(arr5, N);
 
@@ -173,9 +180,33 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     cout << "Parallel Quick Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
 
-    // Print array after sort
+    // Print array after Parallel Quick sort
     //
     printArray(arr5, N);
+
+    cout << endl << "/*****************************************************************************/" << endl;
+
+    // Print array before Sequential Bitonic sort
+    //
+    printArray(arr6, N);
+
+    // start timer
+    // 
+    begin = std::chrono::high_resolution_clock::now();
+
+    // Sequential Bitonic Sort
+    //
+    sequentialBitonicSort(arr6, 0, N);
+
+    // End timer
+    //
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cout << "Sequential Bitonic Sort elapsed time: " << std::fixed << std::setprecision(9) << elapsed.count() * 1e-9 << " seconds." << endl;
+
+    // Print array after Sequential Bitonic sort
+    //
+    printArray(arr6, N);
 
     cout << endl << "/*****************************************************************************/" << endl;
 
