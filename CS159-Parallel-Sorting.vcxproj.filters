@@ -24,12 +24,18 @@
     <ClCompile Include="parallelQuickSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parallelBitonicSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parallelMergeSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parallelQuickSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parallelBitonicSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

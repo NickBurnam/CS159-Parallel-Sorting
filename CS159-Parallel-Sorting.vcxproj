@@ -142,10 +142,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="parallelBitonicSort.cpp" />
     <ClCompile Include="parallelMergeSort.cpp" />
     <ClCompile Include="parallelQuickSort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="parallelBitonicSort.h" />
     <ClInclude Include="parallelMergeSort.h" />
     <ClInclude Include="parallelQuickSort.h" />
   </ItemGroup>
