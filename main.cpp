@@ -23,7 +23,7 @@ void initArray(int* array, int n);
 void printArray(int* array, int n);
 void copyArray(int* source, int* dest, int size);
 
-const int N = 16777216; //Must be a power of 2 for bitonic sort 2^24=16777216
+const int N = 16; //Must be a power of 2 for bitonic sort 2^24=16777216
 const bool printArrays = false;
 
 /**
