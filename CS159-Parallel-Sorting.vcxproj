@@ -153,6 +153,9 @@
     <ClInclude Include="parallelMergeSort.h" />
     <ClInclude Include="parallelQuickSort.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

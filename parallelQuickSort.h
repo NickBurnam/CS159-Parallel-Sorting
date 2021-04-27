@@ -4,8 +4,8 @@
 // Date: 4/1/2021
 // Description: A parallel quick sort algorithm implemented 
 //              using OpenMP.
-// Source: Adapted from 
-//		   https://github.com/
+// Source: Adapted from Eduard López
+//		   https://github.com/eduardlopez/quicksort-parallel
 // *********************************************************
 
 #pragma once
